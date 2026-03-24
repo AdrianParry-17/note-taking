@@ -1,50 +1,105 @@
-# Welcome to your Expo app 👋
+# Journey Map Note Taking (MVP)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Journey Map Note Taking is an offline-first learning workspace built around the **Journey–Map Based Learning Framework**.
 
-## Get started
+Instead of linear note dumping, this app models learning as exploration:
 
-1. Install dependencies
+- learning domain → **World**
+- topics/subtopics → **Areas / Sub-areas / Structures**
+- prerequisite barriers → **Gates**
+- recommended sequences → **Roads**
+- reflective notes → **Journal**
+- reusable assets/snippets → **Backpack**
 
-   ```bash
-   npm install
-   ```
+This MVP focuses on orientation, structured exploration, and practical note workflows.
 
-2. Start the app
+## Why this app exists
 
-   ```bash
-   npx expo start
-   ```
+The framework is designed to reduce:
 
-In the output, you'll find options to open the app in a
+- tutorial hell (path-following without world understanding)
+- orientation problems (not knowing where you are)
+- overwhelm (large topic sets with no structure)
+- fear of going off-track
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Core mindset:
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+> Learn like an adventurer navigating a world, not like a passenger dragged down one road.
 
-## Get a fresh project
+## MVP features
 
-When you're ready, run:
+- **Map Workspace**
+   - recursive area tree (`area` / `structure` + isolated flag)
+   - inspector-based editing for area details, marks, and gates
+   - gate prerequisites/outcomes editing
+   - road authoring with ordered area steps
+   - best-effort map focusing (jump to area from linked contexts)
+- **Journal Workspace**
+   - area-linked or general journals
+   - markdown editing + preview
+- **Backpack Workspace**
+   - reusable snippets/assets with tags
+   - area-linked or general items
+   - markdown editing + preview
+- **Utility Workspace**
+   - skill management
+   - skill usage views (`Prerequisite For`, `Outcome From`)
+   - keyboard shortcut reference
+   - world save/close controls
+- **World lifecycle**
+   - open existing world folder
+   - create world with template selection (`Blank World` / `Tutorial World`)
+   - save world state back to local files
+
+## Local data architecture
+
+The app uses user-selected local folders (privacy-first, offline-capable):
+
+- `world.json` → map tree, journals metadata, skills, roads, marks
+- `data/journals/<journal_id>.md` → journal contents
+- `data/backpack.json` → backpack data
+- `data/marking/<area_id>/<gate_id>_note.md` → gate save notes
+
+Best-effort handling is used for missing references (for example deleted IDs): the UI preserves usable state and shows placeholders instead of crashing.
+
+## Getting started
+
+### Requirements
+
+- Node.js LTS
+- npm
+- modern Chromium-based browser (for File System Access API flow)
+
+### Install
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Run (web)
 
-## Learn more
+```bash
+npm run web
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+Or with Expo menu:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npx expo start
+```
 
-## Join the community
+## Scripts
 
-Join our community of developers creating universal apps.
+- `npm run web` → start web target
+- `npm run lint` → run lint checks
+- `npx tsc --noEmit` → TypeScript typecheck
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Project notes
+
+- Built with Expo + React Native.
+- This project was **AI-assisted** during development as an experiment in collaborative building.
+- The experiment worked well and shipped as a focused MVP.
+
+## Status
+
+MVP complete. Current focus is polish, stability, and iterative improvements on UX and learning flow.

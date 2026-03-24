@@ -10,8 +10,8 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import Markdown from 'react-native-markdown-display';
 
+import { MarkdownPreview } from '@/components/app/markdown-preview';
 import { SearchComboBox } from '@/components/app/search-combobox';
 import { AppState, findAreaById, flattenAreasWithPath, makeId, makeSequentialUntitledName } from '@/lib/app-model';
 
@@ -448,23 +448,7 @@ export function JournalWorkspace({
                 />
               ) : (
                 <ScrollView style={styles.previewWrap}>
-                  <Markdown
-                    style={{
-                      body: styles.previewBody,
-                      heading1: styles.previewH1,
-                      heading2: styles.previewH2,
-                      heading3: styles.previewH3,
-                      paragraph: styles.previewParagraph,
-                      list_item: styles.previewListItem,
-                      bullet_list: styles.previewList,
-                      ordered_list: styles.previewList,
-                      code_inline: styles.previewInlineCode,
-                      code_block: styles.previewCodeBlock,
-                      blockquote: styles.previewQuote,
-                      link: styles.previewLink,
-                    }}>
-                    {selectedContent || '_Empty journal. Switch to Edit mode to start writing._'}
-                  </Markdown>
+                  <MarkdownPreview markdown={selectedContent || '_Empty journal. Switch to Edit mode to start writing._'} />
                 </ScrollView>
               )}
             </View>
